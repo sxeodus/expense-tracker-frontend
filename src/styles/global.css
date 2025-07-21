@@ -1,0 +1,53 @@
+/* 
+  Define a consistent color palette and theme for the entire application.
+  Using CSS variables makes it easy to change the theme later.
+*/
+:root {
+  --primary-color: #007bff;
+  --secondary-color: #6c757d;
+  --success-color: #28a745;
+  --danger-color: #dc3545;
+  --warning-color: #ffc107;
+  --info-color: #17a2b8;
+  --light-color: #f8f9fa;
+  --dark-color: #343a40;
+  --text-color: #212529;
+  --body-bg: #f4f7f6;
+  --border-radius: 8px;
+  --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Apply the background image and base styles to the body */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* This is where we set your background image */
+  background-image: url('../assets/background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; /* This makes the background stay in place on scroll */
+  min-height: 100vh;
+  color: var(--text-color);
+}
+
+/* General reset for box-sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Style links to use our theme color */
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}

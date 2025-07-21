@@ -1,0 +1,11 @@
+# This configuration file is for Netlify.
+# It ensures that your single-page React application's routing works correctly.
+
+[build]
+  command = "npm run build"
+  publish = "build"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

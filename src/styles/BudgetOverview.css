@@ -1,0 +1,120 @@
+/* Main container for the budget overview page */
+.budget-overview-container {
+  max-width: 800px;
+  margin: 2.5rem auto;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  box-shadow: var(--box-shadow);
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Header section */
+.budget-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.budget-header h2 {
+  font-size: 2rem;
+  color: var(--dark-color);
+  margin: 0;
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.header-nav a {
+  font-weight: 500;
+  color: var(--primary-color);
+}
+
+.header-nav .logout-button {
+  background-color: var(--danger-color);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.header-nav .logout-button:hover {
+  background-color: #c82333;
+}
+
+/* Overspending warning */
+.overspending-warning {
+  color: var(--danger-color);
+  background: rgba(255, 235, 238, 0.95);
+  border-left: 5px solid var(--danger-color);
+  border-radius: var(--border-radius);
+  padding: 1rem 1.2rem;
+  margin-bottom: 1.5rem;
+  font-weight: bold;
+}
+
+/* Summary cards section */
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+/* Styles for the inline budget editing form */
+.edit-budget-form {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.edit-budget-form input {
+  padding: 6px 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  width: 120px;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.edit-budget-form .save-btn {
+  background-color: var(--success-color);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+}
+
+/* Styles for displaying the budget value */
+.budget-display {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.budget-display .edit-btn {
+  background-color: var(--secondary-color);
+  color: white;
+  border: none;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Chart container */
+.chart-container {
+  padding: 1.5rem;
+  background-color: rgba(248, 249, 250, 0.7);
+  border-radius: var(--border-radius);
+}

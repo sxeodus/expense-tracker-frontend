@@ -1,0 +1,32 @@
+/* styles/components.css */
+/* input, select, textarea {
+  padding: 0.75rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fff;
+  width: 100%;
+  font-size: 1rem;
+}
+
+body.dark input,
+body.dark select,
+body.dark textarea {
+  background: var(--card-bg);
+  color: var(--text-color);
+  border-color: #444;
+}
+
+button {
+  background: linear-gradient(to right, var(--accent-color), var(--primary-color));
+  border: none;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+button:hover {
+  opacity: 0.9;
+} */
