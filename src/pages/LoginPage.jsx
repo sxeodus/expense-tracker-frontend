@@ -114,9 +114,12 @@ function LoginPage() {
           />
         </div>
 
-        <p>
-          Don't have an account? <Link to="/register">Register</Link>
+        <p className="auth-link" style={{ marginTop: '0.5rem' }}>
+          <Link to="/forgot-password">Forgot Password?</Link>
         </p>
+        <p className="auth-link">
+          Don't have an account? <Link to="/register">Register</Link>
+        </p>        
       </Card>
     </div>
   );

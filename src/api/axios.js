@@ -1,8 +1,15 @@
 import axios from 'axios';
 
+// Dynamically set the API base URL depending on the environment.
+// The `REACT_APP_API_URL` will be set in Netlify's environment variables for production.
+const baseURL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+
 const apiClient = axios.create({
-  baseURL: 'http://localhost:5000/api', // Your backend API URL
+  baseURL: baseURL,
   withCredentials: true, // This is crucial for sending cookies with requests
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
 // Request Interceptor: Attaches the access token to every request

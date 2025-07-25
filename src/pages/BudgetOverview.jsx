@@ -11,62 +11,75 @@ import "../styles/BudgetOverview.css"; // Consolidated stylesheet
 Chart.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 function BudgetOverview() {
-  const { user, logout, updateUser } = useAuth();
-  const [transactions, setTransactions] = useState([]);
+  // Renamed updateUser to avoid confusion with local state
+  const { logout, updateUser: updateAuthContextUser } = useAuth();
+  const [pageData, setPageData] = useState({
+    user: null,
+    transactions: [],
+  });
   const [loading, setLoading] = useState(true);
   const [editBudget, setEditBudget] = useState(false);
-  const [newBudget, setNewBudget] = useState(user?.budget || 0);
+  const [newBudget, setNewBudget] = useState("");
 
   useEffect(() => {
-    const fetchTransactions = async () => {
+    const fetchPageData = async () => {
       try {
-        const res = await apiClient.get("/transactions");
-        setTransactions(res.data);
+        // Fetch user profile and transactions in parallel for efficiency
+        const [userRes, transactionsRes] = await Promise.all([
+          apiClient.get("/auth/me"),
+          apiClient.get("/transactions"),
+        ]);
+
+        setPageData({
+          user: userRes.data,
+          transactions: transactionsRes.data,
+        });
+
+        // Initialize the budget input field with the current budget
+        setNewBudget(userRes.data.budget || "");
       } catch (error) {
-        console.error("Failed to fetch transactions", error);
+        console.error("Failed to fetch page data", error);
+        // You could add logic here to redirect to login if unauthorized
       } finally {
         setLoading(false);
       }
     };
-    fetchTransactions();
+    fetchPageData();
   }, []);
-
-  useEffect(() => {
-    if (user) {
-      setNewBudget(user.budget);
-    }
-  }, [user]);
 
   const handleBudgetUpdate = async () => {
     try {
-      const response = await apiClient.put("/auth/budget", {
-        budget: newBudget,
-      });
-      // Update the user in the global context
-      updateUser({ budget: response.data.budget });
+      const response = await apiClient.put("/auth/budget", { budget: newBudget });
+      const updatedUser = { ...pageData.user, budget: response.data.budget };
+      setPageData({ ...pageData, user: updatedUser }); // Update local state for immediate feedback
+      updateAuthContextUser(updatedUser); // Update the user in the global context
       setEditBudget(false);
     } catch (error) {
+      console.error("Failed to update budget:", error);
       alert("Failed to update budget.");
     }
   };
 
   if (loading) return <div style={{ textAlign: "center", marginTop: "2rem" }}>Loading...</div>;
-  if (!user) return null;
+  if (!pageData.user) return <div style={{ textAlign: "center", marginTop: "2rem" }}>Could not load user data. Please try logging in again.</div>;
+
+  const { user, transactions } = pageData;
+  const budgetAmount = parseFloat(user.budget) || 0;
 
   const expenses = transactions
     .filter((t) => t.type === "expense")
     .reduce((acc, t) => acc + parseFloat(t.amount), 0);
 
-  const balance = (user?.budget || 0) - expenses;
+  const balance = budgetAmount - expenses;
 
-  const isOverspending = user && expenses > parseFloat(user.budget);
+  const isOverspending = budgetAmount > 0 && expenses > budgetAmount;
 
   const data = {
     labels: ["Budget", "Expenses"],
     datasets: [
       {
         label: "Amount",
-        data: [parseFloat(user.budget), parseFloat(expenses)],
+        data: [budgetAmount, expenses],
         backgroundColor: ["#007bff", "#dc3545"],
         borderRadius: 8,
         barThickness: 60,
@@ -97,7 +110,7 @@ function BudgetOverview() {
       </header>
       {isOverspending && (
         <div className="overspending-warning">
-          ⚠️ Warning: You are overspending! Your expenses (${expenses.toFixed(2)}) exceed your budget (${user?.budget}).
+          ⚠️ Warning: You are overspending! Your expenses (${expenses.toFixed(2)}) exceed your budget (${budgetAmount.toFixed(2)}).
         </div>
       )}
       <div className="summary-cards">
@@ -106,18 +119,18 @@ function BudgetOverview() {
           value={
             editBudget ? (
               <div className="edit-budget-form">
-                <input type="number" value={newBudget} onChange={e => setNewBudget(e.target.value)} />
+                <input type="number" value={newBudget} onChange={e => setNewBudget(e.target.value)} placeholder="e.g., 1500" />
                 <button onClick={handleBudgetUpdate} className="save-btn">Save</button>
               </div>
             ) : (
               <div className="budget-display">
-                ${parseFloat(user.budget).toFixed(2)}
-                <button onClick={() => setEditBudget(true)} className="edit-btn">Edit</button>
+                ${budgetAmount.toFixed(2)}
+                <button onClick={() => { setEditBudget(true); setNewBudget(budgetAmount); }} className="edit-btn">Edit</button>
               </div>
             )
           }
         />
-        <Card title="Remaining Budget" value={`$${balance.toFixed(2)}`} />
+        <Card title="Left Of Monthly Budget" value={`$${balance.toFixed(2)}`} />
       </div>
       <div className="chart-container">
         <Bar data={data} options={options} />

@@ -6,6 +6,8 @@ import ExpenseTracker from "./pages/ExpenseTracker";
 import BudgetOverview from "./pages/BudgetOverview";
 import Profile from "./pages/Profile";
 import PrivateRoute from "./components/PrivateRoute";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 import { useAuth } from "./context/AuthContext";
 
 function App() {
@@ -16,6 +18,8 @@ function App() {
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route
           path="/dashboard"
           element={(

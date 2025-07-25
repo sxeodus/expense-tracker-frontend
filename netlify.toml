@@ -1,10 +1,18 @@
-# This configuration file is for Netlify.
-# It ensures that your single-page React application's routing works correctly.
+# Netlify configuration file
+# This file tells Netlify how to build and deploy your site.
 
 [build]
+  # This is the command Netlify will run to build your site.
+  # For Create React App, this is the standard build command.
   command = "npm run build"
+
+  # This is the directory that contains the built files of your site.
+  # Netlify will deploy the contents of this directory.
   publish = "build"
 
+# This redirect rule is essential for single-page applications (SPAs).
+# It ensures that any direct navigation to a route like /profile or /dashboard
+# is handled by your index.html, allowing React Router to take over.
 [[redirects]]
   from = "/*"
   to = "/index.html"

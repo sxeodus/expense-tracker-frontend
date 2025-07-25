@@ -17,12 +17,13 @@
     "@testing-library/user-event": "^13.5.0",
     "ajv": "^8.17.1",
     "autoprefixer": "^10.4.21",
-    "axios": "^1.10.0",
+    "axios": "^1.11.0",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^3.0.2",
     "bootstrap": "^5.3.7",
     "chart.js": "^4.5.0",
     "chartjs-plugin-datalabels": "^2.2.0",
+    "compression": "^1.8.1",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "date-fns": "^4.1.0",
@@ -34,6 +35,7 @@
     "formik": "^2.4.6",
     "google-auth-library": "^10.1.0",
     "helmet": "^8.1.0",
+    "install": "^0.13.0",
     "json2csv": "^6.0.0-alpha.2",
     "jsonwebtoken": "^9.0.0",
     "jspdf": "^3.0.1",
@@ -43,6 +45,7 @@
     "mysql2": "^3.1.2",
     "node-cron": "^4.2.1",
     "nodemailer": "^7.0.5",
+    "npm": "^11.4.2",
     "postcss": "^8.5.6",
     "qrcode.react": "^4.2.0",
     "react": "^19.1.0",
@@ -91,5 +94,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.28.0",
+    "@babel/preset-env": "^7.28.0",
+    "@babel/preset-react": "^7.27.1",
+    "babel-loader": "^10.0.0"
   }
 }
