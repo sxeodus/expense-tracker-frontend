@@ -1,6 +1,10 @@
 # Netlify configuration file
 # This file tells Netlify how to build and deploy your site.
 
+[build.environment]
+  # This flag tells npm to ignore peer dependency conflicts. Use this as a temporary workaround.
+  NPM_FLAGS = "--legacy-peer-deps"
+
 [build]
   # This is the command Netlify will run to build your site.
   # For Create React App, this is the standard build command.
