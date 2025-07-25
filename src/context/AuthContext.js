@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import apiClient from '../api/axios';
+import { googleLogout } from '@react-oauth/google';
 
 const AuthContext = createContext(null);
 
@@ -31,8 +32,11 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       console.error('Logout failed on server:', error);
     } finally {
+      // This is the most important part for the user experience.
       setToken(null);
       setUser(null);
+      // Also sign out from Google to allow the user to choose a different account next time.
+      googleLogout();
     }
   };
 
